@@ -17,7 +17,7 @@ info = audioinfo(infile);
 bits = info.BitsPerSample;
 
 %%Display infile 
-plot(s,'r:')
+plot(s, 'r:')
 
 %%Playback infile if playstate is set
 if playstate == 1

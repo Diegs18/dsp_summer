@@ -1,4 +1,4 @@
-function [s,fs,bits] = ex14(infile1, infile2, N)
+function [s, fs, bits] = ex16(infile1, infile2, N)
 
 % [s,fs,bits]=ex14(infile1,infile2)
 %
@@ -10,8 +10,10 @@ function [s,fs,bits] = ex14(infile1, infile2, N)
 % bits – bits per sample in each file
 %
 % Function loads infile1 and infile2, then displays
-% records frame-by-frame.
+% records frame-by-frame. Computes average energy
+% per sample in each file.
 
+%% 
 %%Load in the files 
 
 [s1,fs1]=audioread(infile1);
@@ -27,11 +29,11 @@ l2 = length(s2);
 M  = min(l1, l2); 
 K  = fix(M/N);
 e  = s1 - s2;
-mean_s1 = mean(s1)
-std_s1 = std(s1)
+e1 = (s1'*s1)/N;
+denom = (e'*e)/N;
+e2 = (s2'*s2)/N;
 
-mean_s2 = mean(s2)
-std_s2 = std(s2)
+SNR = 10*log10(e1/denom)
 
 for k = 1:K
         %Compute indices for current frame
@@ -39,17 +41,25 @@ for k = 1:K
 
         %signal 1
         subplot(211); 
-        plot(n, s1(n), 'b', n, e(n), 'g:');
+        ax = gca;
+        plot(ax, n, s1(n), 'b', n, e(n), 'g:');
+        yline(ax, e1,'r-')
         msg = sprintf('%s Frame %d', infile1, k); 
         title(msg);
+        msg = sprintf('Average power %d', e1); 
+        text(n(1)+500.0, 0.4, msg);
         ylabel ('Normalized Amplitude'); 
         xlabel ('Sampled index');
 
         %signal 2
         subplot(212); 
-        plot(n, s2(n), 'b', n, e(n), 'g:');
+        ax = gca;
+        plot(ax, n, s2(n), 'b', n, e(n), 'g:');
+        yline(ax, e2, 'r-')
         msg = sprintf('%s Frame %d', infile2, k); 
         title(msg);
+        msg = sprintf('Average power %d', e2); 
+        text(n(1)+500.0, 0.4, msg);
         ylabel ('Normalized Amplitude'); 
         xlabel ('Sampled index');
         
@@ -61,3 +71,4 @@ end
 s = [s1, s2];
 fs = [fs1, fs2];
 bits = [bits1, bits2];
+
