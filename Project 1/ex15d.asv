@@ -1,0 +1,11 @@
+%%%%%%%%% This file is just to experirment with multiplying
+N = 1000
+v = randn(N, 1);
+
+result = v'*v
+
+for i = 1:N
+    mult = v(i)
+
+end
+result = sum(v)
