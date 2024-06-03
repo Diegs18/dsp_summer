@@ -40,7 +40,7 @@ for k = 1:K
         subplot(211); 
         ax = gca;
         plot(ax, n, s1(n), 'b', n, e(n), 'g:');
-        yline(ax, e1,'r-')
+        yline(ax, e1,'r-');
         msg = sprintf('%s Frame %d', infile1, k); 
         title(msg);
         msg = sprintf('Average power %d', e1); 
