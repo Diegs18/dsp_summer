@@ -10,25 +10,25 @@ gp = 10^(gp_db/10);
 gst = 10^(gst_db/10); 
 n = 256; 
 %%
-[m, wn] = buttord(wp, wst, gp_db, gst_db); 
+[n, wn] = buttord(wp, wst, gp_db, gst_db); 
 [b, a]  = butter(m, wn); 
 freqz(b, a);
 title("Magnitude: Butterworth"); 
-disp("Order of Butter worth"); disp(max(length(b), length(a)));
+disp("Order of Butter worth"); disp(n);
 %%
 figure
-[m, wn] = cheb2ord(wp, wst, gp_db, gst_db); 
+[n, wn] = cheb1ord(wp, wst, gp_db, gst_db); 
 [b, a]  = cheby1(m, gp_db, wn);
 freqz(b, a); 
 title("Magnitude: Chebyshev1 ");
-disp("Order of chebyshev"); disp(max(length(b), length(a)));
+disp("Order of chebyshev"); disp(n);
 
 %%
 figure
-[m, wn] = ellipord(wp, wst, gp_db, gst_db); 
+[n, wn] = ellipord(wp, wst, gp_db, gst_db); 
 [b, a]  = ellip(m, gp_db, gst_db, wn); 
 freqz(b, a); 
 title("Magnitude: Elliptic ");
-disp("Order of Elliptic"); disp(max(length(b), length(a)));
+disp("Order of Elliptic"); disp(n);
 
 
